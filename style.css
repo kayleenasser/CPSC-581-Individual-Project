@@ -1,0 +1,51 @@
+@font-face {
+  font-family: 'MilkyVintage';
+  src: url("fonts/MilkyVintage-Regular.ttf");
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  padding: 0;
+  align-content: center;
+  align-items: center;
+  vertical-align: middle;
+}
+
+h1 {
+  font-family: 'MilkyVintage';
+  font-size: 4.5em;
+  margin: 0;
+}
+
+h1, h2 {
+  text-align: center;
+}
+
+.footer-reference {
+  font-size: 0.8em;
+  text-align: center;
+}
+
+.directions {
+  visibility: hidden;
+  color: white;
+  font-family: 'MilkyVintage';
+  font-size: 15vw;
+  position: absolute;
+  text-align: center;
+  left: 40vw;
+  top: 40vh;
+  z-index: 1;
+}
+
+#canvas {
+  border: 10px solid #000;
+  border-radius: 18px;
+  display: block;
+  margin: 0 auto;
+}
+
