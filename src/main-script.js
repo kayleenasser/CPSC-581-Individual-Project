@@ -1,6 +1,8 @@
 var video, canvas, context, imageData, detector, posit;
 
-var markerSize = 150.0; //this should be the real life size in millimetres of your marker
+var markerSize = 130.0; //this should be the real life size in millimetres of your marker
+var head_marker = 366; 
+var foot_marker = 867;
 
 function onLoad() {
     video = document.getElementById("video");
