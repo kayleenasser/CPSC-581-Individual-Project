@@ -21,15 +21,18 @@ async function detectPalmOpen() {
     hands.setOptions({
         maxNumHands: 1,
         modelComplexity: 1,
-        minDetectionConfidence: 0.4,
-        minTrackingConfidence: 0.4
+        minDetectionConfidence: 0.8,
+        minTrackingConfidence: 0.8
     });
 
     hands.onResults((results) => {
+        if (detected) {
+            return;
+        }
         if (results.multiHandLandmarks && results.multiHandLandmarks.length > 0) {
             const landmarks = results.multiHandLandmarks[0];
             const isPalmOpen = checkIfPalmOpen(landmarks);
-            if (isPalmOpen && !detected) {
+            if (isPalmOpen) {
                 detected = true;
                 intro.style.visibility = "hidden";
                 intro.innerText = "Please stand back!";
@@ -64,7 +67,6 @@ function checkIfPalmOpen(landmarks) {
     const palmOpen = (thumbTip.z < wrist.z) && (indexTip.z < wrist.z) && 
              (middleTip.z < wrist.z) && (ringTip.z < wrist.z) && 
              (pinkyTip.z < wrist.z);
-    console.log("palmOpen", palmOpen);
     return palmOpen;
 }
 

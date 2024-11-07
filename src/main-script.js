@@ -1,10 +1,11 @@
-var video, canvas, context, imageData, detector, posit;
+var video, height, canvas, context, imageData, detector, posit;
 
-var markerSize = 130.0; //this should be the real life size in millimetres of your marker
-var head_marker = 366; 
-var foot_marker = 867;
+var markerSize = 83; //this should be the real life size in millimetres of your marker
+var head_marker = 45; // Id of the head marker
+var foot_marker = 90; // Id of the foot marker
 
 function onLoad() {
+    height = document.getElementById("height");
     video = document.getElementById("video");
     canvas = document.getElementById("canvas");
     context = canvas.getContext("2d");
@@ -34,6 +35,7 @@ function tick() {
         snapshot();
 
         var markers = detector.detect(imageData);
+
         drawCorners(markers);
         drawId(markers);
 
@@ -85,18 +87,46 @@ function showDistance(markers) {
 
         pose2 = posit.pose(corners2);
 
-        var d = document.getElementById("distance");
-        // pose.bestTranslation first 3 indexes are position
-        var distance = calculateDistance(pose1.bestTranslation, pose2.bestTranslation);
-        d.innerHTML = "Distance: " + distance;
+        var headMarker, footMarker; 
 
-        if (distance > markerSize * 2) {
-            d.style.color = "red";
-        } else {
-            d.style.color = "blue";
+        for (var i = 0; i < markers.length; i++) {
+            if (markers[i].id === head_marker) {
+                headMarker = markers[i];
+            } else if (markers[i].id === foot_marker) {
+                footMarker = markers[i];
+            }
         }
 
-        updateProxemicButton(distance, 200, 400, 600);
+        if (headMarker && footMarker) {
+            var headCorners = headMarker.corners;
+            var footCorners = footMarker.corners;
+
+            // Center the corners on the canvas
+            for (var i = 0; i < headCorners.length; ++i) {
+                headCorners[i].x -= (canvas.width / 2);
+                headCorners[i].y = (canvas.height / 2) - headCorners[i].y;
+            }
+
+            for (var i = 0; i < footCorners.length; ++i) {
+                footCorners[i].x -= (canvas.width / 2);
+                footCorners[i].y = (canvas.height / 2) - footCorners[i].y;
+            }
+
+            // Get the estimated 3d position of the markers
+            var headPose = posit.pose(headCorners);
+            var footPose = posit.pose(footCorners);
+
+            // Calculate the vertical distance between the head and foot markers
+            var verticalDistance = Math.abs(headPose.bestTranslation[1] - footPose.bestTranslation[1]); // in mm
+            verticalDistance = verticalDistance / 10; // Convert mm to cm
+            var verticalDistanceInInches = verticalDistance / 2.54; // Convert cm to inches
+            var verticalFeet = Math.floor(verticalDistanceInInches / 12);
+            var verticalInches = Math.round(verticalDistanceInInches % 12);
+            verticalDistance = verticalDistance.toFixed(0);
+            verticalFeet = verticalFeet.toFixed(0);
+            verticalInches = verticalInches.toFixed(0);
+            height.innerHTML = "Height: " + verticalDistance + " cm (" + verticalFeet + " ft " + verticalInches + " in)";
+        }
     }
 };
 
@@ -160,7 +190,7 @@ function drawId(markers) {
             y = Math.min(y, corner.y);
         }
 
-        context.strokeText(markers[i].id, x, y - 10) // move it up a little so we don't cover the position
+        context.strokeText("ID: "+ markers[i].id, x, y - 10) // move it up a little so we don't cover the position
     }
 }
 
@@ -199,4 +229,5 @@ function drawCornerPosition(markers) {
             Math.trunc(positionInSpace[2]), x, y)
     }
 }
+
 window.onload = onLoad;
