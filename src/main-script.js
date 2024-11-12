@@ -1,14 +1,20 @@
-var video, height, canvas, context, imageData, detector, posit;
+var video, height, user_intro, user_directions, animal, animal_subtext, canvas, context, imageData, detector, posit;
 
 var markerSize = 83; //this should be the real life size in millimetres of your marker
 var head_marker = 45; // Id of the head marker
 var foot_marker = 90; // Id of the foot marker
+let fixed_height = 0;
+let gotAnimal = false;
 
 function onLoad() {
-    height = document.getElementById("height");
+    //height = document.getElementById("height");
     video = document.getElementById("video");
     canvas = document.getElementById("canvas");
     context = canvas.getContext("2d");
+    animal = document.getElementById("animal");
+    user_intro = document.getElementById("intro");
+    user_directions = document.getElementById("directions");
+    animal_subtext = document.getElementById("subtext");
 
     canvas.width = parseInt(canvas.style.width);
     canvas.height = parseInt(canvas.style.height);
@@ -59,6 +65,9 @@ function calculateDistance(point1, point2) {
 
 // Show the distance between the first two markers we can see
 function showDistance(markers) {
+    if (gotAnimal || !detected) {
+        return;
+    }
     if (markers.length >= 2) {
 
         var corner, corners1, corners2;
@@ -97,7 +106,13 @@ function showDistance(markers) {
             }
         }
 
+        if (!headMarker && footMarker || !footMarker && headMarker) {
+            user_intro.innerHTML = "Please step back to show both markers";
+            return;
+        }
+
         if (headMarker && footMarker) {
+            user_intro.innerHTML = "Perfect! Processing, please stand still...";
             var headCorners = headMarker.corners;
             var footCorners = footMarker.corners;
 
@@ -125,22 +140,26 @@ function showDistance(markers) {
             verticalDistance = verticalDistance.toFixed(0);
             verticalFeet = verticalFeet.toFixed(0);
             verticalInches = verticalInches.toFixed(0);
-            height.innerHTML = "Height: " + verticalDistance + " cm (" + verticalFeet + " ft " + verticalInches + " in)";
-        }
-    }
-};
-
-function updateProxemicButton(howClose, near, medium, far) {
-    const button = document.getElementById("proxemicButton");
-    if (button != null) {
-        if (howClose <= near) {
-            button.textContent = "Too close!";
-        } else if (howClose > near && howClose <= medium) {
-            button.textContent = "Just right.";
-        } else if (howClose > medium && howClose <= far) {
-            button.textContent = "A little closer";
-        } else {
-            button.textContent = "I'm lonely";
+            // height.innerHTML = "Height: " + verticalDistance + " cm (" + verticalFeet + "' " + verticalInches + "\")";
+            if (fixed_height === 0) {
+                fixed_height = verticalDistance;
+                setTimeout(() => {
+                    if (fixed_height === verticalDistance) {
+                        user_intro.innerHTML = "Getting results...."; 
+                        setTimeout(() => {
+                            animal.innerHTML = GetAnimalHeight(verticalDistance);
+                            animal_subtext.innerHTML = "Height: " + verticalDistance + " cm ";
+                            animal.style.visibility = "visible";
+                            animal_subtext.style.visibility = "visible";
+                            gotAnimal = true;
+                            user_intro.innerHTML = "Press key to restart";
+                        }, 2000);
+                    } else {
+                        console.log("Height changed");
+                        fixed_height = 0; 
+                    }
+                }, 4000);
+            } 
         }
     }
 };
@@ -229,5 +248,29 @@ function drawCornerPosition(markers) {
             Math.trunc(positionInSpace[2]), x, y)
     }
 }
+
+function GetAnimalHeight(height_CM) {
+    var heightString = String(height_CM);
+
+    var animal = data[heightString + "cm"];
+    if (heightString < 2) {
+        animal = data["1cm"];
+    }
+    if (animal) {
+        return animal;
+    } else {
+        return "Unknown animal";
+    }
+}
+
+document.addEventListener('keydown', function(event) {
+    gotAnimal = false;
+    fixed_height = 0;
+    detected = false;
+    user_directions.innerHTML = "OK!";
+    user_intro.innerHTML = "Wave to Begin";
+    animal.style.visibility = "hidden";
+    animal_subtext.style.visibility = "hidden";
+});
 
 window.onload = onLoad;
