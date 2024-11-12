@@ -252,9 +252,12 @@ function drawCornerPosition(markers) {
 function GetAnimalHeight(height_CM) {
     var heightString = String(height_CM);
 
-    var animal = data[heightString + "cm"];
+    var animal = data[heightString + " cm"];
     if (heightString < 2) {
-        animal = data["1cm"];
+        animal = data["1 cm"];
+    }
+    if (heightString > 212) {
+        animal = data["212 cm"];
     }
     if (animal) {
         return animal;
