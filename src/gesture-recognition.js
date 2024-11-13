@@ -34,13 +34,13 @@ async function detectPalmOpen() {
             const isPalmOpen = checkIfPalmOpen(landmarks);
             if (isPalmOpen) {
                 detected = true;
-                intro.style.visibility = "hidden";
-                intro.innerText = "Please stand back!";
+                intro.innerText = "Starting...";
                 directions.style.visibility = "visible";
                 setTimeout(() => {
                   directions.style.visibility = "hidden";
+                  intro.innerText = "Please stand back!";
                   intro.style.visibility = "visible";
-                }, 3000);
+                }, 2000);
             } 
         }
     });

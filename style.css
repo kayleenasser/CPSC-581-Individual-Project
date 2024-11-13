@@ -13,22 +13,23 @@ body {
   align-content: center;
   align-items: center;
   vertical-align: middle;
+  background-image: url('assets/bg.png');
+  background-size: cover;
 }
 
 h1 {
   font-family: 'MilkyVintage';
-  font-size: 4.5em;
+  font-size: 6vw;
   margin: 0;
   margin-bottom: -15px;
+  color: black;
 }
 
 h2 {
+  color: black;
   overflow: hidden; 
   white-space: nowrap; /* Keeps the content on a single line */
   margin: 0 auto; /* Gives that scrolling effect as the typing happens */
-  animation: 
-    typing 3.5s steps(40, end),
-    blink-caret .75s step-end infinite;
 }
 
 .h2-container {
@@ -36,6 +37,15 @@ h2 {
   margin: 0 auto;
   overflow: hidden;
   white-space: nowrap;
+}
+
+.background-block {
+  background-color:white;
+  max-height: fit-content;
+  max-width: fit-content;
+  border-radius: 10px;
+  padding: 10px;
+  margin: 0 auto;
 }
 
 h1, h2, h3{
@@ -67,42 +77,35 @@ h1, h2, h3{
   margin: 0 auto;
 } 
 
-/* The typing effect */
-@keyframes typing {
-  from { width: 0 }
-  to { width: 100% }
-}
-
-/* The typewriter cursor effect */
-@keyframes blink-caret {
-  from, to { border-color: transparent }
-  50% { border-color: orange; }
-}
-
 .animal-reveal{
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-size: 10vw;
+  font-size: 15vh;
+  padding: 10px;
   z-index: 9999;
   text-align: center;
   font-family: 'MilkyVintage';
-  -webkit-text-stroke-width: 4px;
-  -webkit-text-stroke-color: white;
+  color: white;
+  -webkit-text-stroke-width: 2px;
+  -webkit-text-stroke-color: black;
+  text-shadow: 4px 4px 0 white;
 }
 
 .subtext {
   position: fixed;
   color: white;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: black;
+  text-shadow: 1px 1px 0 white;
   z-index: 9999;
   text-align: center;
-  font-size: 4vw;
+  font-size: 8vh;
   transform: translate(-50%, -50%);
   top: 70%;
   left: 50%;
   margin-top: 50px;
   font-family: 'MilkyVintage';
-  -webkit-text-stroke-width: 1px;
-  -webkit-text-stroke-color: black;
+  
 }

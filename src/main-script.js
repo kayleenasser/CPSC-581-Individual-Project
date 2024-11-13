@@ -152,7 +152,8 @@ function showDistance(markers) {
                             animal.style.visibility = "visible";
                             animal_subtext.style.visibility = "visible";
                             gotAnimal = true;
-                            user_intro.innerHTML = "Press key to restart";
+                            user_intro.innerHTML = "Wow! You're the perfect size!";
+                            setTimeout(() => {user_intro.innerHTML = "Press any key to restart."}, 4000);
                         }, 2000);
                     } else {
                         console.log("Height changed");
@@ -271,7 +272,7 @@ document.addEventListener('keydown', function(event) {
     fixed_height = 0;
     detected = false;
     user_directions.innerHTML = "OK!";
-    user_intro.innerHTML = "Wave to Begin";
+    user_intro.innerHTML = "Wave to Begin!";
     animal.style.visibility = "hidden";
     animal_subtext.style.visibility = "hidden";
 });

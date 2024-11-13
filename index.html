@@ -1,24 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="stylesheet" href="style.css" />
-        <script src="src/animal-dict.js"></script>
-        <script src="libs/polyfill.js"></script> 
-        <script src="src/svd.js"></script> 
-        <script src="src/posit1.js"></script> 
-        <script src="src/cv.js"></script> 
-        <script src="src/aruco.js" defer></script>
-        <script src="src/main-script.js"> </script>
-        <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands"> </script>
-        <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js"></script>
-    </head>
-    <body>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="style.css" />
+    <script src="src/animal-dict.js"></script>
+    <script src="libs/polyfill.js"></script>
+    <script src="src/svd.js"></script>
+    <script src="src/posit1.js"></script>
+    <script src="src/cv.js"></script>
+    <script src="src/aruco.js" defer></script>
+    <script src="src/main-script.js"> </script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands"> </script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js"></script>
+</head>
+
+<body>
+    <div class="background-block">
         <h1><strong>Creature Metre</strong></h1>
         <div class="h2-container">
-            <h2 id="intro">Wave to Begin</h2>
+            <h2 id="intro">Wave to Begin!</h2>
         </div>
         <video id="video" autoplay="true" style="display:none;"></video>
         <div class="directions" id="directions">OK!</div>
@@ -26,10 +29,12 @@
         <div class="animal-reveal" id="animal"></div>
         <div class="subtext" id="subtext"></div>
         <div class="footer-reference">
-            <strong>Powered by 
+            <strong>Powered by
                 <a href="https://damianofalcioni.github.io/js-aruco2/">js-aruco2</a>
-            </strong> 
+            </strong>
         </div>
-        <script src="src/gesture-recognition.js"> </script>
-    </body>
+    </div>
+    <script src="src/gesture-recognition.js"> </script>
+</body>
+
 </html>
