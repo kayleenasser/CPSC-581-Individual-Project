@@ -22,7 +22,7 @@ h1 {
   font-size: 6vw;
   margin: 0;
   margin-bottom: -15px;
-  color: black;
+  color: rgb(0, 0, 0);
 }
 
 h2 {
@@ -40,10 +40,15 @@ h2 {
 }
 
 .background-block {
-  background-color:white;
+  background-color: rgb(142, 179, 195);
+  border-radius: 10px;
+  border-width: 10px;
+  border-color: black;
+  border-style: solid;
+  min-height: 97vh;
+  min-width: 646px;
   max-height: fit-content;
   max-width: fit-content;
-  border-radius: 10px;
   padding: 10px;
   margin: 0 auto;
 }
@@ -52,9 +57,20 @@ h1, h2, h3{
   text-align: center;
 }
 
+img {
+  position: absolute;
+  z-index: 2;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
 .footer-reference {
   font-size: 0.8em;
   text-align: center;
+  left: 45%;
+  bottom: 5vh;
+  position: fixed;
 }
 
 .directions {
@@ -79,7 +95,7 @@ h1, h2, h3{
 
 .animal-reveal{
   position: fixed;
-  top: 50%;
+  top: 30%;
   left: 50%;
   transform: translate(-50%, -50%);
   font-size: 15vh;
@@ -103,7 +119,7 @@ h1, h2, h3{
   text-align: center;
   font-size: 8vh;
   transform: translate(-50%, -50%);
-  top: 70%;
+  top: 80%;
   left: 50%;
   margin-top: 50px;
   font-family: 'MilkyVintage';

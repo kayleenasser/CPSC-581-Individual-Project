@@ -1,5 +1,4 @@
-var video, height, user_intro, user_directions, animal, animal_subtext, canvas, context, imageData, detector, posit;
-
+var video, img, user_intro, user_directions, animal, animal_subtext, canvas, context, imageData, detector, posit;
 var markerSize = 83; //this should be the real life size in millimetres of your marker
 var head_marker = 45; // Id of the head marker
 var foot_marker = 90; // Id of the foot marker
@@ -7,7 +6,7 @@ let fixed_height = 0;
 let gotAnimal = false;
 
 function onLoad() {
-    //height = document.getElementById("height");
+    img = document.getElementById("animal-image");
     video = document.getElementById("video");
     canvas = document.getElementById("canvas");
     context = canvas.getContext("2d");
@@ -140,14 +139,16 @@ function showDistance(markers) {
             verticalDistance = verticalDistance.toFixed(0);
             verticalFeet = verticalFeet.toFixed(0);
             verticalInches = verticalInches.toFixed(0);
-            // height.innerHTML = "Height: " + verticalDistance + " cm (" + verticalFeet + "' " + verticalInches + "\")";
             if (fixed_height === 0) {
                 fixed_height = verticalDistance;
                 setTimeout(() => {
                     if (fixed_height === verticalDistance) {
-                        user_intro.innerHTML = "Getting results...."; 
+                        user_intro.innerHTML = "Getting results....";
                         setTimeout(() => {
                             animal.innerHTML = GetAnimalHeight(verticalDistance);
+                            img.src = GetAnimalImage(animal.innerHTML);
+                            ChangeCameraAngle(true);
+                            img.style.visibility = "visible";
                             animal_subtext.innerHTML = "Height: " + verticalDistance + " cm ";
                             animal.style.visibility = "visible";
                             animal_subtext.style.visibility = "visible";
@@ -275,6 +276,51 @@ document.addEventListener('keydown', function(event) {
     user_intro.innerHTML = "Wave to Begin!";
     animal.style.visibility = "hidden";
     animal_subtext.style.visibility = "hidden";
+    img.src = "";
+    img.style.visibility = "hidden";
+    ChangeCameraAngle(false);
 });
+
+function GetAnimalImage(animalname) {
+    return "assets/" + animalname.replace(/\s+/g, '').toLowerCase() + ".png";
+}
+
+function ChangeCameraAngle(toggle){
+    if (toggle) {
+        // Set the video and canvas to a circle in the bottom left of the container
+        video.style.position = 'absolute';
+        video.style.borderRadius = '50%';
+        video.style.width = '200px';
+        video.style.height = '200px';
+        video.style.bottom = '40px';
+        video.style.left = '420px';
+        video.style.objectFit = 'cover';
+
+        canvas.style.position = 'absolute';
+        canvas.style.borderRadius = '50%';
+        canvas.style.width = '200px';
+        canvas.style.height = '200px';
+        canvas.style.bottom = '40px';
+        canvas.style.left = '420px';
+        canvas.style.objectFit = 'cover';
+    } else {
+        // Reset the video and canvas to their original positions
+        video.style.position = 'relative';
+        video.style.borderRadius = '10%';
+        video.style.width = '100%';
+        video.style.height = '100%';
+        video.style.bottom = '0px';
+        video.style.left = '0px';
+        video.style.objectFit = 'cover';
+
+        canvas.style.position = 'relative';
+        canvas.style.borderRadius = '10%';
+        canvas.style.width = '100%';
+        canvas.style.height = '100%';
+        canvas.style.bottom = '0px';
+        canvas.style.left = '0px';
+        canvas.style.objectFit = 'cover';
+    }
+}
 
 window.onload = onLoad;
