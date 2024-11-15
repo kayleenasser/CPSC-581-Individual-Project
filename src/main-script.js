@@ -1,4 +1,4 @@
-var video, img, user_intro, user_directions, animal, animal_subtext, canvas, context, imageData, detector, posit;
+var video, img, user_intro, user_directions, animal, animal_subtext, canvas, context, imageData, detector, posit, distanceFromCamera;
 var markerSize = 83; //this should be the real life size in millimetres of your marker
 var head_marker = 45; // Id of the head marker
 var foot_marker = 90; // Id of the foot marker
@@ -144,7 +144,16 @@ function showDistance(markers) {
                 setTimeout(() => {
                     if (fixed_height === verticalDistance) {
                         user_intro.innerHTML = "Getting results....";
+                        user_directions.innerHTML = "Come Close!";
+                        user_directions.style.visibility = "visible";
+                        let checkInterval = setInterval(() => {
+                            if (distanceFromCamera < 390) {
+                                clearInterval(checkInterval);
+                            }
+                        }, 10000);
                         setTimeout(() => {
+                            user_directions.style.visibility = "hidden";
+                            user_directions.innerHTML = "OK!";
                             animal.innerHTML = GetAnimalHeight(verticalDistance);
                             img.src = GetAnimalImage(animal.innerHTML);
                             ChangeCameraAngle(true);
@@ -160,7 +169,7 @@ function showDistance(markers) {
                         console.log("Height changed");
                         fixed_height = 0; 
                     }
-                }, 4000);
+                }, 3000);
             } 
         }
     }
@@ -248,6 +257,10 @@ function drawCornerPosition(markers) {
         context.strokeText(Math.trunc(positionInSpace[0]) + "," +
             Math.trunc(positionInSpace[1]) + "," +
             Math.trunc(positionInSpace[2]), x, y)
+
+        if (markers[i].id === head_marker) {
+            distanceFromCamera = Math.trunc(positionInSpace[2]);
+        }
     }
 }
 
@@ -290,23 +303,23 @@ function ChangeCameraAngle(toggle){
         // Set the video and canvas to a circle in the bottom left of the container
         video.style.position = 'absolute';
         video.style.borderRadius = '50%';
-        video.style.width = '200px';
-        video.style.height = '200px';
-        video.style.bottom = '40px';
-        video.style.left = '420px';
+        video.style.width = '220px';
+        video.style.height = '220px';
+        video.style.bottom = '50px';
+        video.style.left = '380px';
         video.style.objectFit = 'cover';
 
         canvas.style.position = 'absolute';
         canvas.style.borderRadius = '50%';
-        canvas.style.width = '200px';
-        canvas.style.height = '200px';
-        canvas.style.bottom = '40px';
-        canvas.style.left = '420px';
+        canvas.style.width = '220px';
+        canvas.style.height = '220px';
+        canvas.style.bottom = '50px';
+        canvas.style.left = '380px';
         canvas.style.objectFit = 'cover';
     } else {
         // Reset the video and canvas to their original positions
         video.style.position = 'relative';
-        video.style.borderRadius = '10%';
+        video.style.borderRadius = '10px';
         video.style.width = '100%';
         video.style.height = '100%';
         video.style.bottom = '0px';
@@ -314,7 +327,7 @@ function ChangeCameraAngle(toggle){
         video.style.objectFit = 'cover';
 
         canvas.style.position = 'relative';
-        canvas.style.borderRadius = '10%';
+        canvas.style.borderRadius = '10px';
         canvas.style.width = '100%';
         canvas.style.height = '100%';
         canvas.style.bottom = '0px';
