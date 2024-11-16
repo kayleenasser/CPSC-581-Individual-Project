@@ -1,7 +1,6 @@
-# CPSC-581-Individual-Project
-Individual HCI II project based around proxemics.
-
 # Welcome to Creature Metre! 
+Kaylee Nasser
+CPSC-581-Individual-Project
 ## The Interactive Interface to figure out your height compared to a creature!
 The interface uses ARUCO proxemic markers and Google's MediaPipe gesture recongizer to create a fun interactive interface for you to use on small models / children.
 
