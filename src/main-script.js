@@ -144,6 +144,7 @@ function showDistance(markers) {
                 setTimeout(() => {
                     if (fixed_height === verticalDistance) {
                         user_intro.innerHTML = "Getting results....";
+                        user_directions.style.fontSize = "10vw";
                         user_directions.innerHTML = "Come Close!";
                         user_directions.style.visibility = "visible";
                         let checkInterval = setInterval(() => {
@@ -153,6 +154,7 @@ function showDistance(markers) {
                         }, 10000);
                         setTimeout(() => {
                             user_directions.style.visibility = "hidden";
+                            user_directions.style.fontSize = "15vw";
                             user_directions.innerHTML = "OK!";
                             animal.innerHTML = GetAnimalHeight(verticalDistance);
                             img.src = GetAnimalImage(animal.innerHTML);
