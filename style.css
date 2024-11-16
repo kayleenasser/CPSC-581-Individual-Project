@@ -58,6 +58,7 @@ h2 {
 #canvas {
   border: 4px solid #040f14;
   box-shadow: 3px 3px white;
+  background-color: white;
   border-radius: 18px;
   display: block;
   margin: 0 auto;
