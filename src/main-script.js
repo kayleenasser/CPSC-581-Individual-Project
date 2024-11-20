@@ -185,7 +185,7 @@ function drawCorners(markers) {
     for (i = 0; i !== markers.length; ++i) {
         corners = markers[i].corners;
 
-        context.strokeStyle = "red";
+        context.strokeStyle = "cyan";
         context.beginPath();
 
         for (j = 0; j !== corners.length; ++j) {
@@ -198,7 +198,7 @@ function drawCorners(markers) {
         context.stroke();
         context.closePath();
 
-        context.strokeStyle = "green";
+        context.strokeStyle = "cyan";
         context.strokeRect(corners[0].x - 2, corners[0].y - 2, 4, 4);
     }
 }
@@ -206,7 +206,7 @@ function drawCorners(markers) {
 function drawId(markers) {
     var corners, corner, x, y, i, j;
 
-    context.strokeStyle = "green";
+    context.strokeStyle = "cyan";
     context.lineWidth = 1;
 
     for (i = 0; i !== markers.length; ++i) {
@@ -229,7 +229,7 @@ function drawId(markers) {
 function drawCornerPosition(markers) {
     var corners, corner, x, y, i, j, k, pose;
 
-    context.strokeStyle = "blue";
+    context.strokeStyle = "cyan";
     context.lineWidth = 1;
 
     for (i = 0; i !== markers.length; ++i) {
