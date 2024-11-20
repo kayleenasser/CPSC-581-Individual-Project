@@ -148,30 +148,28 @@ function showDistance(markers) {
                         user_directions.innerHTML = "Come Close!";
                         user_directions.style.visibility = "visible";
                         let checkInterval = setInterval(() => {
-                            if (distanceFromCamera < 390) {
+                            if (distanceFromCamera < 450) {
                                 clearInterval(checkInterval);
+                                user_directions.style.visibility = "hidden";
+                                user_directions.style.fontSize = "15vw";
+                                user_directions.innerHTML = "OK!";
+                                animal.innerHTML = GetAnimalHeight(verticalDistance);
+                                img.src = GetAnimalImage(animal.innerHTML);
+                                ChangeCameraAngle(true);
+                                img.style.visibility = "visible";
+                                animal_subtext.innerHTML = "Height: " + verticalDistance + " cm ";
+                                animal.style.visibility = "visible";
+                                animal_subtext.style.visibility = "visible";
+                                gotAnimal = true;
+                                user_intro.innerHTML = "Wow! You're the perfect size!";
+                                setTimeout(() => {user_intro.innerHTML = "Press any key to restart."}, 4000);
                             }
-                        }, 10000);
-                        setTimeout(() => {
-                            user_directions.style.visibility = "hidden";
-                            user_directions.style.fontSize = "15vw";
-                            user_directions.innerHTML = "OK!";
-                            animal.innerHTML = GetAnimalHeight(verticalDistance);
-                            img.src = GetAnimalImage(animal.innerHTML);
-                            ChangeCameraAngle(true);
-                            img.style.visibility = "visible";
-                            animal_subtext.innerHTML = "Height: " + verticalDistance + " cm ";
-                            animal.style.visibility = "visible";
-                            animal_subtext.style.visibility = "visible";
-                            gotAnimal = true;
-                            user_intro.innerHTML = "Wow! You're the perfect size!";
-                            setTimeout(() => {user_intro.innerHTML = "Press any key to restart."}, 4000);
-                        }, 2000);
+                        }, 100);
                     } else {
                         console.log("Height changed");
                         fixed_height = 0; 
                     }
-                }, 3000);
+                }, 4500);
             } 
         }
     }

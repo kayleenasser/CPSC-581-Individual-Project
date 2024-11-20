@@ -80,6 +80,8 @@ img {
   visibility: hidden;
   color: white;
   position: fixed;
+  -webkit-text-stroke-width: 2px;
+  -webkit-text-stroke-color: black;
   top: 55%;
   left: 50%;
   transform: translate(-50%, -50%);
